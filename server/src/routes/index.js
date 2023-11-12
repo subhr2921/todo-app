@@ -1,12 +1,13 @@
 const authController = require("../controllers/authController");
 const taskController = require("../controllers/taskController");
 const userController = require("../controllers/userController");
-const verifyToken = require("../middleware/verifyToken");
+const { verifyToken, tokenExpiryCheck } = require("../middleware/verifyToken");
 
 const routes = require("express").Router();
 
 //Auth
 routes.post("/auth/login", authController.login);
+routes.post("/auth/verify-token", tokenExpiryCheck);
 
 //Task
 routes.post("/task/create", verifyToken, taskController.createTask);

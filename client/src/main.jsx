@@ -12,7 +12,7 @@ const defaultTheme = createTheme();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <CssBaseline />
         <AppContextProvider>
           <LazyApp />

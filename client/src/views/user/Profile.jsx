@@ -99,31 +99,31 @@ const Profile = () => {
                                         <Typography>
                                             Name :
                                         </Typography>
-                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.name}`} />
+                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.name || 'N/A'}`} />
                                     </ListItem>
                                     <ListItem sx={{ p: 0 }}>
                                         <Typography>
                                             Email :
                                         </Typography>
-                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.email}`} />
+                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.email || 'N/A'}`} />
                                     </ListItem>
                                     <ListItem sx={{ p: 0 }}>
                                         <Typography>
                                             Mobile :
                                         </Typography>
-                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.mobile}`} />
+                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.mobile || 'N/A'}`} />
                                     </ListItem>
                                     <ListItem sx={{ p: 0 }}>
                                         <Typography>
                                             Task Created :
                                         </Typography>
-                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.task?.length}`} />
+                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.task?.length || 'N/A'}`} />
                                     </ListItem>
                                     <ListItem sx={{ p: 0 }}>
                                         <Typography>
                                             Task Completed  :
                                         </Typography>
-                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.task?.filter((e) => e?.isDone === true).length}`} />
+                                        <ListItemText sx={{ ml: 1 }} secondary={`${userData?.task?.filter((e) => e?.isDone === true).length || 'N/A'}`} />
                                     </ListItem>
                                 </List>
                             }

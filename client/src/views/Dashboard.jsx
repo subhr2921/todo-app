@@ -186,7 +186,7 @@ const Dashboard = () => {
           </Container>
           <Container sx={{ py: 2 }} maxWidth="lg">
             <Grid container spacing={2}>
-              {todoList.map((task) => (
+              {todoList?.map((task) => (
                 <Grid item key={task?._id} xs={12} sm={6} md={4}>
                   <TodoCard data={task} handelAction={handelAction} />
                 </Grid>

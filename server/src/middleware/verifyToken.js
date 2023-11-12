@@ -28,4 +28,29 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+const tokenExpiryCheck = (req, res) => {
+  try {
+    const authHeader = req.headers["authorization"] || undefined;
+
+    if (!authHeader || authHeader === "") {
+      return commonResponse(res, 400, [], "Token Not Found");
+    }
+
+    let token = authHeader.split(" ")[1];
+    if (token === null || token === "") {
+      return commonResponse(res, 400, [], "Unauthorized Access");
+    }
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+      if (err) {
+        return commonResponse(res, 403, [], "Unauthorized");
+      }
+      return commonResponse(res, 200, []);
+    });
+  } catch (error) {
+    console.log("error in token check", error.message);
+    return commonResponse(res, 500, [], error?.message);
+  }
+};
+
+module.exports = { verifyToken, tokenExpiryCheck };
