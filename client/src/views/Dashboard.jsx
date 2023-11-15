@@ -110,7 +110,10 @@ const Dashboard = () => {
       if (resp.status === 200) {
         getTaskList()
         setActiveTask(null)
-        reset()
+        reset({
+          title: "",
+          description: "",
+        })
         sweetAlertBox(`Success`, `${resp?.data?.message}`, "success");
       } else {
         sweetAlertBox(`Oops`, `${resp?.data?.message}`, "warning");

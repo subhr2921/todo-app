@@ -18,7 +18,7 @@ const createUser = async (req, res) => {
       mobile,
       password: encryptedPassword,
     });
-    let token = jwt.sign({ _id: userData._id }, _ENV["JWT_SECRET_KEY"], {
+    let token = jwt.sign({ _id: user._id }, _ENV["JWT_SECRET_KEY"], {
       expiresIn: "72H",
     });
     return commonResponse(res, 200, {

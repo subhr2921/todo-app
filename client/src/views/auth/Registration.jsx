@@ -36,8 +36,6 @@ const Registration = () => {
       if (resp.status === 200) {
         let data = resp?.data?.data
         setIsAuth(true)
-        setUserData(resp?.data?.data)
-        setUserData({ _id: data?._id, name: data?.name, email: data?.email, mobile: data?.mobile })
         localStorage.setItem("isLoggedIn", true)
         localStorage.setItem("token", data?.token)
         localStorage.setItem("user", data?.name)
@@ -45,13 +43,11 @@ const Registration = () => {
         sweetAlertBox(`Success`, `User Created Successfully`, "success");
       } else {
         setIsAuth(false);
-        setUserData({})
         localStorage.clear()
         sweetAlertBox(`Oops`, `${resp?.data?.message}`, "warning");
       }
     } catch (error) {
       setIsAuth(false);
-      setUserData({})
       localStorage.clear()
       sweetAlertBox(`Oops`, `something went wrong`, "warning");
     }
@@ -104,7 +100,7 @@ const Registration = () => {
                 required
                 fullWidth
                 id="name"
-                label="full name"
+                label="Full name"
                 name="name"
                 type="text"
                 autoComplete="name"

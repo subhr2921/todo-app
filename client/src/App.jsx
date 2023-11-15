@@ -8,23 +8,29 @@ import { ApiCall } from "./utility/services";
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { isAuth, userData, setUserData } = useContext(AppContext);
-  let tokenValue = localStorage.getItem('token');
-  let beforeLoginUrls = ['/', '/register'];
+  const { isAuth, userData, setUserData, setIsAuth } = useContext(AppContext);
+  let tokenValue = localStorage.getItem('token') || null;
+  let beforeLoginUrls = ['/', '/sign-up'];
   useEffect(() => {
-    let isTokenExpired = false;
-    ApiCall('auth/verify-token', 'POST').then((resp) => {
-      isTokenExpired = resp?.status === 403
-    })
-    if (((tokenValue === null || isAuth === false) && !beforeLoginUrls.includes(location.pathname)) || isTokenExpired) {
+    if (tokenValue !== null) {
+      ApiCall('auth/verify-token', 'POST').then((resp) => {
+        if (resp.status === 403) {
+          setIsAuth(false);
+          localStorage.clear()
+        }
+      })
+    }
+    if ((tokenValue === null || isAuth === false) && !beforeLoginUrls.includes(location.pathname)) {
       return navigate('/');
     }
-  }, [tokenValue, location.pathname]);
+  }, [isAuth, tokenValue, location.pathname]);
 
   useEffect(() => {
     if (userData === null && isAuth) {
-      ApiCall("user/profile", "GET").then(({ data }) => {
-        setUserData(data?.data[0])
+      ApiCall("user/profile", "GET").then((resp) => {
+        if (resp.status === 200) {
+          setUserData(resp?.data?.data[0])
+        }
       })
     }
   }, [userData])
